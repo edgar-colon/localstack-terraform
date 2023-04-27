@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  localstack:
+    container_name: localstack-terraform
+    image: localstack/localstack:latest
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - PORT_WEB_UI=8080
+      - SERVICES=lambda,s3,dynamodb,lambda,kinesis,sns,sqs,iam,secretmanager,sts,codepipeline,codebuild
+    ports:
+      - '4566-4583:4566-4583'
+    volumes:
+      - '${TEMPDIR:-/tmp/localstack}:/tmp/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
