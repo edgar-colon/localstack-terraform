@@ -11,14 +11,14 @@ provider "aws" {
   }
 }
 
-resource "aws_s3_bucket" "create" {
+resource "aws_s3_bucket" "bucket_terraform" {
   bucket = "bucket-terraform"
 
   # acl    = "public-read"
 }
 
 resource "aws_s3_bucket_ownership_controls" "create" {
-  bucket = aws_s3_bucket.create.id
+  bucket = aws_s3_bucket.bucket_terraform.id
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
@@ -38,6 +38,6 @@ resource "aws_s3_bucket_acl" "create" {
     aws_s3_bucket_public_access_block.create,
   ]
 
-  bucket = aws_s3_bucket.create.id
+  bucket = aws_s3_bucket.bucket_terraform.id
   acl    = "public-read"
 }
